@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.description   = %(
     cocoapods project gen
   ).strip.gsub(/\s+/, ' ')
-  spec.homepage      = 'https://github.com/Cat1237/cocoapods-project-gen.git'
+  spec.homepage      = 'https://github.com/BestiOSDev/cocoapods-project-gen.git'
   spec.license       = 'MIT'
   spec.files         = %w[README.md LICENSE] + Dir['lib/**/*.rb']
   spec.require_paths = ['lib']
