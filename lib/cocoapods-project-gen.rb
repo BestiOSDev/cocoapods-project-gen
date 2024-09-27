@@ -3,6 +3,7 @@ module ProjectGen
   require 'pathname'
   require 'claide'
   require 'cocoapods-project-gen/gem_version'
+  require 'cocoapods-project-gen/gen/podfile/podfile'
   # autoload registers a file path to be loaded the first time
   # that a specified module or class is accessed in the namespace of the calling module or class.
   autoload :Command, 'cocoapods-project-gen/command/command'
@@ -11,4 +12,7 @@ module ProjectGen
   autoload :Constants, 'cocoapods-project-gen/gen/constants'
   autoload :Utils, 'cocoapods-project-gen/gen/utils'
   autoload :Results, 'cocoapods-project-gen/gen/results'
+  autoload :BinSpecWithSource, 'cocoapods-project-gen/gen/specification'
+  autoload :AmberBin, 'cocoapods-project-gen/gen/podfile/dsl'
+
 end

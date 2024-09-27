@@ -15,8 +15,9 @@ module ProjectGen
 
     def create_bin_products
       FileUtils.rm_rf(product_path) if product_path.exist?
-      build_xcframework
+      error = build_xcframework
       add_pod_targets_file_accessors_paths
+      error
     end
 
     # Performs platform specific analysis. It requires to download the source
@@ -29,6 +30,7 @@ module ProjectGen
       xc_args = @products.flat_map(&:create_bin_product_args!)
       error = XcodeBuild.create_xcframework?(xc_args, xcframework_product_path)
       print_pod_xcframework_infos unless error
+      error
     end
 
     def xcframework_product_path

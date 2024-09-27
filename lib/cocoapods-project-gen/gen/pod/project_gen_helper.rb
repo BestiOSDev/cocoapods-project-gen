@@ -25,8 +25,8 @@ module ProjectGen
       project_gen_dir.rmtree if project_gen_dir.exist?
       project_gen_dir.mkpath
       @original_config = Pod::Config.instance.clone
-      config.installation_root   = project_gen_dir
-      config.silent              = !config.verbose
+      config.installation_root = project_gen_dir
+      config.silent = !config.verbose
     end
 
     # !@group Lint steps
@@ -126,7 +126,7 @@ module ProjectGen
         dynamic_frameworks = file_accessor.vendored_dynamic_frameworks
         dynamic_libraries = file_accessor.vendored_dynamic_libraries
         if (dynamic_frameworks.count.positive? || dynamic_libraries.count.positive?) && platform.name == :ios &&
-           (deployment_target.nil? || deployment_target.major < 8)
+          (deployment_target.nil? || deployment_target.major < 8)
           error('dynamic', 'Dynamic frameworks and libraries are only supported on iOS 8.0 and onwards.')
         end
       end
@@ -295,12 +295,12 @@ module ProjectGen
                 subspecs.each do |s|
                   if s.supported_on_platform?(platform)
                     pod s.name, podspec: s.defined_in_file.to_s,
-                                inhibit_warnings: false
+                        inhibit_warnings: false
                   end
                 end
               elsif podspec.supported_on_platform?(platform)
                 pod podspec.name, podspec: podspec.defined_in_file.to_s,
-                                  inhibit_warnings: false
+                    inhibit_warnings: false
               end
             end
           end

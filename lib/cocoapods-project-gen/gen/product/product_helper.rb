@@ -34,6 +34,18 @@ module ProjectGen
       sandbox.sources_root + root_name
     end
 
+    def bin_spec_path
+      bin_spec_dir.join(bin_spec_filename)
+    end
+
+    def bin_spec_filename
+      "#{pod_name}.podspec.json"
+    end
+
+    def bin_spec_dir
+      product_path
+    end
+
     def build_as_library?
       target.build_as_library?
     end
@@ -68,6 +80,14 @@ module ProjectGen
 
     def sandbox
       target.sandbox
+    end
+
+    def zip_dir
+      @root.join('zip_bin')
+    end
+
+    def zip_product_name
+      "#{pod_name}_#{product_type}.zip"
     end
 
     def xcframework_product_name

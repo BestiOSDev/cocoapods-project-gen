@@ -17,25 +17,25 @@ module ProjectGen
 
       def initialize(argv)
         super
-        @build    = argv.flag?('build', true)
+        @build = argv.flag?('build', true)
         @local = argv.flag?('local')
         @build_library_for_distribution = argv.flag?('build-library-for-distribution')
         @use_latest = argv.flag?('use-latest', true)
         output_dir = argv.option('output-dir', Pathname.pwd)
         @output_dir = Pathname.new(output_dir).expand_path.join('project_gen/App')
-        @allow_warnings      = argv.flag?('allow-warnings', true)
-        @clean               = argv.flag?('clean', false)
-        @only_subspecs       = argv.option('subspecs', '').split(',')
-        @use_frameworks      = !argv.flag?('use-libraries')
+        @allow_warnings = argv.flag?('allow-warnings', true)
+        @clean = argv.flag?('clean', false)
+        @only_subspecs = argv.option('subspecs', '').split(',')
+        @use_frameworks = !argv.flag?('use-libraries')
         @use_modular_headers = argv.flag?('use-modular-headers', true)
         @use_static_frameworks = argv.flag?('use-static-frameworks')
-        @source_urls         = argv.option('sources', Pod::TrunkSource::TRUNK_REPO_URL).split(',')
-        @platforms           = argv.option('platforms', '').split(',')
-        @swift_version       = argv.option('swift-version', nil)
-        @include_podspecs    = argv.option('include-podspecs', '').split(',').map { |path| Pathname.new(path).expand_path }
-        @external_podspecs   = argv.option('external-podspecs', '').split(',').map { |path| Pathname.new(path).expand_path }
-        @podspecs_paths      = argv.arguments!
-        @configuration       = argv.option('configuration', nil)
+        @source_urls = argv.option('sources', Pod::TrunkSource::TRUNK_REPO_URL).split(',')
+        @platforms = argv.option('platforms', '').split(',')
+        @swift_version = argv.option('swift-version', nil)
+        @include_podspecs = argv.option('include-podspecs', '').split(',').map { |path| Pathname.new(path).expand_path }
+        @external_podspecs = argv.option('external-podspecs', '').split(',').map { |path| Pathname.new(path).expand_path }
+        @podspecs_paths = argv.arguments!
+        @configuration = argv.option('configuration', nil)
       end
 
       def validate!
@@ -61,9 +61,9 @@ module ProjectGen
           ['--platforms=ios,macos', 'Gen against specific platforms (defaults to all platforms supported by the ' \
             'podspec). Multiple platforms must be comma-delimited'],
           ['--swift-version=VERSION', 'The `SWIFT_VERSION` that should be used to gen the spec. ' \
-           'This takes precedence over the Swift versions specified by the spec or a `.swift-version` file'],
+            'This takes precedence over the Swift versions specified by the spec or a `.swift-version` file'],
           ['--include-podspecs=**/*.podspec', 'Additional ancillary podspecs which are used for gening via :path'],
-          ['--external-podspecs=**/*.podspec', 'Additional ancillary podspecs which are used for gening '\
+          ['--external-podspecs=**/*.podspec', 'Additional ancillary podspecs which are used for gening ' \
             'via :podspec. If there are --include-podspecs, then these are removed from them'],
           ['--configuration=CONFIGURATION', 'Build using the given configuration (defaults to Release)']
         ].concat(super)
@@ -71,11 +71,11 @@ module ProjectGen
 
       def run
         generator = ProjectGenerator.new(@source_urls, @platforms)
-        generator.local          = @local
-        generator.no_clean       = !@clean
+        generator.local = @local
+        generator.no_clean = !@clean
         generator.use_latest = @use_latest
         generator.allow_warnings = @allow_warnings
-        generator.only_subspecs   = @only_subspecs
+        generator.only_subspecs = @only_subspecs
         generator.use_frameworks = @use_frameworks
         generator.use_modular_headers = @use_modular_headers
         generator.use_static_frameworks = @use_static_frameworks

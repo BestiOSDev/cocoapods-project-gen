@@ -1,6 +1,7 @@
 require 'cocoapods'
 
 module ProjectGen
+  # noinspection ALL
   class BuildManager
     require 'cocoapods-project-gen/gen/build/xcode_build'
     require 'cocoapods-project-gen/gen/product'
@@ -42,10 +43,15 @@ module ProjectGen
           Product.new(target, product_dir, root.parent, platform_archive_paths[target.platform.name])
         end
         ps = Products.new(key, products)
-        ps.create_bin_products
+        error = ps.create_bin_products
         ps.add_pod_targets_file_accessors_paths
-        [key, ps.product_path]
-      end]
+        result = if error
+                   [nil, nil]
+                 else
+                   [key, ps]
+                 end
+        result
+      end].compact
       unless @no_clean
         FileUtils.rm_rf(@app_root)
         FileUtils.rm_rf(archives_dir)

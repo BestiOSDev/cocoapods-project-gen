@@ -112,7 +112,6 @@ module ProjectGen
     def self.new_from_local(podspecs = [], source_urls = [Pod::TrunkSource::TRUNK_REPO_URL], platforms = [], product_type = :framework, configuration = :release, swift_version = nil, use_modular_headers: false)
       generator = new(source_urls, platforms)
       generator.local = true
-      generator.no_subspecs = true
       generator.only_subspecs = nil
       generator.no_clean       = false
       generator.allow_warnings = true
@@ -175,7 +174,7 @@ module ProjectGen
       perform_linting
       platforms, pod_targets, valid = install
       @results.print_results
-      block.call(platforms, pod_targets, @clean, @fail_fast) if !block.nil? && valid
+      block.call(platforms, pod_targets, valid) if !block.nil? && valid
     end
 
     # @return [Pathname] the temporary directory used by the linter.
